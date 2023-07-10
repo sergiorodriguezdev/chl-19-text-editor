@@ -18,9 +18,7 @@ export const putDb = async (content) => {
   const jateDb = await openDB('jate', 1);
   const tx = jateDb.transaction('jate', 'readwrite');
   const store = tx.objectStore('jate');
-  const clearRequest = store.clear();
-  const clearResult = await clearRequest;
-  const request = store.add({content});
+  const request = store.put({ id: 1, code: content});
   const result = await request;
 };
 
@@ -33,10 +31,10 @@ export const getDb = async () => {
   const request = store.getAll();
   const result = await request;
 
-  if (result.length < 1 || result[0].content === null) {
+  if (result.length < 1 || result[0].code === null) {
     return null;
   } else {
-    return result[0].content;
+    return result[0].code;
   }
 };
 
