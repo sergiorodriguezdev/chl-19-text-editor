@@ -37,10 +37,14 @@ module.exports = () => {
         display: "standalone",
         start_url: "./",
         description: "Web-based text editor used to track code snippets",
-        background_color: "#7eb4e2",
-        theme_color: "#7eb4e2",
+        background_color: "green",
+        theme_color: "green",
         fingerprints: false,
       }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js'
+      })
     ],
 
     module: {
@@ -50,7 +54,7 @@ module.exports = () => {
           use: ["style-loader", "css-loader"],
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: "asset/resource",
         },
         {
