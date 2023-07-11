@@ -26,21 +26,21 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
-// TODO: Implement asset caching
+// Cache any content that is an image, style, or script
 registerRoute(
   ({ request }) =>
     request.destination === "image" ||
     request.destination === "style" ||
     request.destination === "script",
   new CacheFirst({
-    cacheName: "asset-cache",
+    cacheName: "asset-cache", // Create browser cache object and assign it this name
     plugins: [
       new CacheableResponsePlugin({
-        statuses: [0, 200],
+        statuses: [0, 200], // Cache content whose response status is either of these codes
       }),
       new ExpirationPlugin({
-        maxEntries: 50,
-        maxAgeSeconds: 30 * 24 * 60 * 60,
+        maxEntries: 50, // Store up to 50 entries in cache
+        maxAgeSeconds: 30 * 24 * 60 * 60, // Entries in cache expire after 30 days
       }),
     ],
   })
